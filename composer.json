@@ -1,9 +1,9 @@
 {
-    "name": "clvarley/example-php",
+    "name": "clvarley/utility",
     "type": "library",
     "license": "MIT",
     "require": {
-        "php": "^8.0"
+        "php": "^8.1"
     },
     "require-dev": {
         "vimeo/psalm": "^6.10",

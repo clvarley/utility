@@ -7,6 +7,7 @@ return (new PhpCsFixer\Config())
     ->setFinder(
         Finder::create()->in(__DIR__)
     )
+    ->setUsingCache(false)
     ->setRules([
         '@PSR12' => true,
 
