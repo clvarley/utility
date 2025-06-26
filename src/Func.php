@@ -34,7 +34,7 @@ final class Func
      * $percentFinder = Func::partialArray('preg_match', ['/\d+%/']);
      * $percent = $percentFinder(['Save 12% in our sale', &$matches]);
      *
-     * echo $matches[0]; // outputs -> 12%
+     * var_dump($matches[0]); // "12%"
      * ```
      *
      * @template T
@@ -72,12 +72,12 @@ final class Func
      *
      * $nameProvider = Func::partialRef('array_pop', $values);
      *
-     * echo $nameProvider(); // outputs -> 'John'
-     * echo $nameProvider(); // outputs -> 'Jill'
-     * echo $nameProvider(); // outputs -> 'Jack'
+     * echo $nameProvider(); // "John"
+     * echo $nameProvider(); // "Jill"
+     * echo $nameProvider(); // "Jack"
      * ```
      *
-     * Doing something like the following however will result in a PHP warning:
+     * However, things like the following will usually result in an error:
      *
      * ```php
      * <?php
@@ -85,7 +85,7 @@ final class Func
      * use Clvarley\Utility\Func;
      *
      * $findPrice = Func::partialRef('preg_match', '/[£$]\d+/');
-     * $findPrice('Low price of $100', $matches); // warning -> $subject must be passed by reference
+     * $findPrice('Low price of $100', $matches); // warning: $subject must be passed by reference
      * ```
      *
      * @template T
@@ -176,8 +176,7 @@ final class Func
      * @param object $object
      * @param mixed[] $args
      *
-     * @throws TypeError
-     *          If the given callable is a class method
+     * @throws TypeError If the given callable is a class method.
      *
      * @return T
      */
@@ -199,7 +198,7 @@ final class Func
      * @param callable $callable
      * @param 'bind'|'apply' $context
      *
-     * @throws TypeError If the given callable is a class method.
+     * @throws TypeError If the given callable cannot be bound or applied.
      */
     private static function validate(
         callable $callable,
