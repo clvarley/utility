@@ -32,9 +32,9 @@ final class Str
      *
      * ```php
      * <?php
-     * 
+     *
      * use Clvarley\Utility\Str;
-     * 
+     *
      * Str::splitAt('Jack & Jill', ' & ');     // ['Jack & ', 'Jill']
      * Str::splitAround('Jack & Jill', ' & '); // ['Jack', 'Jill']
      * ```
@@ -45,7 +45,7 @@ final class Str
      * @pure
      *
      * @param string $subject
-     * @param string $needle       The substring at which to split.
+     * @param string $needle       The substring to search for.
      * @param self::SPLIT_* $where Whether to split before or after `$needle`.
      *
      * @return list{0: string, 1: string}
@@ -84,16 +84,16 @@ final class Str
      *
      * ```php
      * <?php
-     * 
+     *
      * use Clvarley\Utility\Str;
-     * 
+     *
      * Str::splitAround('Jack & Jill', ' & '); // ['Jack', 'Jill']
      * Str::splitAt('Jack & Jill', ' & ');     // ['Jack & ', 'Jill']
      * ```
      *
      * This function is therefore analogous to using `explode(...)` with
-     * `$limit = 2` but the guarantee that the result will always be a 2 element
-     * array.
+     * `$limit = 2` but with the guarantee that the result will always be a 2
+     * element array.
      *
      * If you want the output to also contain the needle use
      * {@see Str::splitAt()} instead.
@@ -101,7 +101,7 @@ final class Str
      * @pure
      *
      * @param string $subject
-     * @param string $needle The substring at which to split.
+     * @param string $needle The substring to search for.
      *
      * @return list{0: string, 1: string}
      */
@@ -125,9 +125,9 @@ final class Str
      * @pure
      *
      * @param string $subject
-     * @param non-empty-string $separators Word separation characters.
+     * @param non-empty-string $separators Word boundary characters.
      *
-     * @return string PascalCase string.
+     * @return string
      */
     public static function pascalCase(
         string $subject,

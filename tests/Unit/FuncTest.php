@@ -23,19 +23,6 @@ final class FuncTest extends TestCase
         self::assertSame(300, $largestOver100(50, 100, 200, 300));
     }
 
-    public function testCanCreatePartiallyAppliedFunctionUsingReferences(): void
-    {
-        $values = ['John', 'Jack', 'Jill'];
-
-        $nameProvider = Func::partialRef('array_pop', $values);
-
-        self::assertSame('Jill', $nameProvider());
-        self::assertSame('Jack', $nameProvider());
-        self::assertSame('John', $nameProvider());
-
-        self::assertEmpty($values);
-    }
-
     public function testCanCreatePartiallyAppliedFunctionUsingArray(): void
     {
         $findPercentage = Func::partialArray('preg_match', ['/\d+%/']);

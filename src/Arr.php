@@ -2,13 +2,19 @@
 
 namespace Clvarley\Utility;
 
+use Stringable;
+
 use function array_diff_key;
 use function array_flip;
 use function array_intersect_key;
 use function array_keys;
+use function array_key_exists;
 use function array_merge;
+use function array_pop;
 use function array_search;
 use function array_slice;
+use function count;
+use function implode;
 
 /**
  * @api
@@ -220,21 +226,21 @@ final class Arr
     }
 
     /**
-     * Groups elements based on the key returned by the provided callback.
+     * Group array elements based on the key returned by a callback function.
      *
-     * Expects a function that takes a single argument (a value from the
+     * Expects a function that takes a single argument (value from the
      * `$subject` array) and returns the desired array key.
      *
      * ```php
      * <?php
-     * 
+     *
      * use Clvarley\Utility\Arr;
-     * 
+     *
      * $grouped = Arr::group([1, 2, 3, 4], function (int $value) {
      *     return $value % 2 === 0 ? 'even' : 'odd';
      * });
-     * 
-     * var_dump($grouped); // Outputs: ['even' => [2, 4], 'odd' => [1, 3]]
+     *
+     * var_dump($grouped); // ['even' => [2, 4], 'odd' => [1, 3]]
      * ```
      *
      * @pure
@@ -245,7 +251,8 @@ final class Arr
      * @param TVal[] $subject
      * @param pure-callable(TVal): TKey $callback
      *
-     * @return array<Tkey, TVal[]>
+     * @psalm-return ($subject is non-empty-array ? non-empty-array<TKey, TVal[]> : array<TKey, TVal[]>)
+     * @return array<TKey, TVal[]>
      */
     public static function group(array $subject, callable $callback): array
     {
@@ -262,5 +269,36 @@ final class Arr
         }
 
         return $groups;
+    }
+
+    /**
+     * Join a series of array values into a natural language sentence.
+     *
+     * @pure
+     *
+     * @param array<scalar|Stringable> $subject
+     * @param string $separator
+     * @param string $conjunction
+     *
+     * @return ($subject is non-empty-array ? non-empty-string : string)
+     */
+    public static function naturalJoin(
+        array $subject,
+        string $separator = ', ',
+        string $conjunction = ' and ',
+    ): string {
+        if (count($subject) <= 2) {
+            return implode($conjunction, $subject);
+        }
+
+        /**
+         * Hack: Psalm cannot determine the type assigned to $last. Even placing
+         * an `assert(!empty($subject))` before this line has no effect.
+         *
+         * @psalm-var scalar|Stringable $last
+         */
+        $last = array_pop($subject);
+
+        return implode($separator, $subject) . $conjunction . (string) $last;
     }
 }

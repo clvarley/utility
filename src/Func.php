@@ -23,20 +23,6 @@ final class Func
      * that have out parameters. This will effect usage of functions such as
      * `preg_match` where data is returned via the `&$matches` parameter.
      *
-     * In those cases you have two options, use either the
-     * {@see self::partialArray()} or {@see self::partialRef()} static methods:
-     *
-     * ```php
-     * <?php
-     *
-     * use Clvarley\Utility\Func;
-     *
-     * $percentFinder = Func::partialArray('preg_match', ['/\d+%/']);
-     * $percent = $percentFinder(['Save 12% in our sale', &$matches]);
-     *
-     * var_dump($matches[0]); // "12%"
-     * ```
-     *
      * @template T
      *
      * @param callable():T $callable
@@ -47,59 +33,6 @@ final class Func
     public static function partial(callable $callable, mixed ...$args): callable
     {
         return static function (mixed ...$additionalArgs) use (
-            $callable,
-            $args
-        ): mixed {
-            return call_user_func_array($callable, [
-                ...$args, ...$additionalArgs
-            ]);
-        };
-    }
-
-    /**
-     * Creates a partial function where all arguments are passed by reference.
-     *
-     * This is only useful in a few limited scenarios, namely functions where
-     * all the arguments are taken by reference or you don't expect to use
-     * literal values.
-     *
-     * ```php
-     * <?php
-     *
-     * use Clvarley\Utility\Func;
-     *
-     * $values = ['Jack', 'Jill', 'John'];
-     *
-     * $nameProvider = Func::partialRef('array_pop', $values);
-     *
-     * echo $nameProvider(); // "John"
-     * echo $nameProvider(); // "Jill"
-     * echo $nameProvider(); // "Jack"
-     * ```
-     *
-     * However, things like the following will usually result in an error:
-     *
-     * ```php
-     * <?php
-     *
-     * use Clvarley\Utility\Func;
-     *
-     * $findPrice = Func::partialRef('preg_match', '/[£$]\d+/');
-     * $findPrice('Low price of $100', $matches); // warning: $subject must be passed by reference
-     * ```
-     *
-     * @template T
-     *
-     * @param callable():T $callable
-     * @param mixed[] $args
-     *
-     * @return callable(mixed...):T
-     */
-    public static function partialRef(
-        callable $callable,
-        mixed &...$args
-    ): callable {
-        return static function (mixed &...$additionalArgs) use (
             $callable,
             $args
         ): mixed {

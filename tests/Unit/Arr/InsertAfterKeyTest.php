@@ -75,7 +75,7 @@ final class InsertAfterKeyTest extends ArrayTestCase
         ], $subject);
     }
 
-        #[TestDox('Will append value to end on non-existent int key')]
+    #[TestDox('Will append value to end on non-existent int key')]
     public function testWillAppendValueToEndOnNonExistentIntKey(): void
     {
         $subject = Arr::insertAfterKey(
