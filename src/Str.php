@@ -48,6 +48,12 @@ final class Str
      * @param string $needle       The substring to search for.
      * @param self::SPLIT_* $where Whether to split before or after `$needle`.
      *
+     * @psalm-return ($subject is non-empty-string
+     *     ? ($where is positive-int
+     *         ? list{0: non-empty-string, 1: string}
+     *         : list{0: string, 1: string})
+     *     : list{0: string, 1: string}
+     * )
      * @return list{0: string, 1: string}
      */
     public static function splitAt(

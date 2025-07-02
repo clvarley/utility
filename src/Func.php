@@ -67,7 +67,7 @@ final class Func
     }
 
     /**
-     * Creates a bound function within the scope of `$object`.
+     * Creates a bound function with access to the scope of `$object`.
      *
      * @template T
      *

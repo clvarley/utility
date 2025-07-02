@@ -3,10 +3,10 @@
 namespace Tests\Unit\Arr;
 
 use Clvarley\Utility\Arr;
-use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversMethod;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(Arr::class, 'naturalJoin')]
+#[CoversMethod(Arr::class, 'naturalJoin')]
 final class NaturalJoinTest extends TestCase
 {
     public function testCanCreateNaturalLanguageListFromArrayItems(): void

@@ -17,7 +17,8 @@ final class Num
      *
      * @param int|float $value
      *
-     * @return ($value is int ? false : bool)
+     * @psalm-return ($value is int ? false : bool)
+     * @return bool
      */
     public static function hasFractional(int|float $value): bool
     {

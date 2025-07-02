@@ -50,11 +50,11 @@ final class Arr
      * @template TKey of array-key
      * @template TVal
      *
-     * @param array<TKey,TVal> $subject
+     * @param array<TKey, TVal> $subject
      * @param TKey $key
      * @param TVal $value
      *
-     * @return array<TKey|non-negative-int, TVal>
+     * @return non-empty-array<TKey|non-negative-int, TVal>
      */
     public static function insertAfterKey(
         array $subject,
@@ -96,6 +96,12 @@ final class Arr
      * @param TKey $key
      * @param array<TKey, TVal> $values
      *
+     * @psalm-return ($subject is non-empty-array
+     *     ? non-empty-array<TKey, TVal>
+     *     : ($values is non-empty-array
+     *         ? non-empty-array<TKey, TVal>
+     *         : array<TKey, TVal>)
+     * )
      * @return array<TKey, TVal>
      */
     public static function mergeAfterKey(
