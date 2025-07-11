@@ -257,7 +257,10 @@ final class Arr
      * @param TVal[] $subject
      * @param pure-callable(TVal): TKey $callback
      *
-     * @psalm-return ($subject is non-empty-array ? non-empty-array<TKey, TVal[]> : array<TKey, TVal[]>)
+     * @psalm-return ($subject is non-empty-array
+     *     ? non-empty-array<TKey, TVal[]>
+     *     : array<TKey, TVal[]>
+     * )
      * @return array<TKey, TVal[]>
      */
     public static function group(array $subject, callable $callback): array

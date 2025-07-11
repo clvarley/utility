@@ -2,6 +2,7 @@
 
 namespace Clvarley\Utility;
 
+use function preg_split;
 use function str_replace;
 use function str_split;
 use function strlen;
@@ -18,6 +19,7 @@ final class Str
     public const SPLIT_AFTER = 1;
 
     private const WORD_SEPERATORS = " \t\r\n\f\v-_";
+    private const REGEX_WHITESPACE = '/\s+/';
 
     /**
      * Split a string in half at the first occurance of `$needle`.
@@ -123,6 +125,20 @@ final class Str
         $tail = substr($subject, $offset + strlen($needle));
 
         return [$head, $tail];
+    }
+
+    /**
+     * Return an array containing each sequence of non-whitespace characters.
+     *
+     * @pure
+     *
+     * @param string $subject
+     *
+     * @return list<string>
+     */
+    public static function splitWhitespace(string $subject): array
+    {
+        return preg_split(self::REGEX_WHITESPACE, $subject);
     }
 
     /**
