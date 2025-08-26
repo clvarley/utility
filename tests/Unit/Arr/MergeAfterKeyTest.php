@@ -3,8 +3,8 @@
 namespace Tests\Unit\Arr;
 
 use Clvarley\Utility\Arr;
-use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\Attributes\CoversMethod;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\Attributes\UsesClass;
 
 #[CoversMethod(Arr::class, 'mergeAfterKey')]

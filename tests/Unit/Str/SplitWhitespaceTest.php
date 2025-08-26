@@ -26,5 +26,5 @@ final class SplitWhitespaceTest extends StringTestCase
         yield 'newlines' => [
             "Now\nthis\r\nthen\nthat", ['Now', 'this', 'then', 'that'],
         ];
-    } 
+    }
 }

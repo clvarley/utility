@@ -7,8 +7,8 @@ use Stringable;
 use function array_diff_key;
 use function array_flip;
 use function array_intersect_key;
-use function array_keys;
 use function array_key_exists;
+use function array_keys;
 use function array_merge;
 use function array_pop;
 use function array_search;
@@ -213,7 +213,7 @@ final class Arr
      * @template T of array
      * @template TKey as key-of<T>
      *
-     * @param array $subject
+     * @param T $subject
      * @param non-empty-list<TKey> $keys
      *
      * @return T
