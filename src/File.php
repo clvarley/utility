@@ -173,10 +173,16 @@ final class File
         string $filePath,
         callable $callback,
     ): bool {
+        // Intentional: guarantee we always `fclose` every handle
         $handle = self::openHandle($filePath, 'r+');
+
+        if (null === $handle) {
+            return false;
+        }
+
         $temp = fopen('php://temp', 'w+');
 
-        if (null === $handle || false === $temp) {
+        if (false === $temp) {
             return false;
         }
 
@@ -194,6 +200,41 @@ final class File
             fclose($handle);
             fclose($temp);
         }
+    }
+
+    /**
+     * @param non-empty-string $from
+     * @param non-empty-string $to
+     * @param callable(resource):string $transform
+     *
+     * @return bool
+     */
+    public static function copyWithTransform(
+        string $from,
+        string $to,
+        callable $transform,
+    ): bool {
+        // Intentional: guarantee we always `fclose` every handle
+        $source = self::openHandle($from, 'r');
+
+        if (null === $source) {
+            return false;
+        }
+
+        $target = self::openHandle($to, 'w');
+
+        if (null === $target) {
+            return false;
+        }
+
+        try {
+            Stream::copyWithTransform($source, $target, $transform);
+        } finally {
+            fclose($source);
+            fclose($target);
+        }
+
+        return true;
     }
 
     /**
@@ -245,6 +286,7 @@ final class File
 
     /**
      * @param non-empty-string $filePath
+     * @param non-empty-string $mode
      *
      * @return resource|null
      */
@@ -261,34 +303,5 @@ final class File
         }
 
         return $handle;
-    }
-
-    /**
-     * @param non-empty-string $from
-     * @param non-empty-string $to
-     * @param callable(resource):string $transform
-     *
-     * @return bool
-     */
-    private static function copyWithTransform(
-        string $from,
-        string $to,
-        callable $transform,
-    ): bool {
-        $source = self::openHandle($from, 'r');
-        $target = self::openHandle($to, 'w');
-
-        if (null === $source || null === $target) {
-            return false;
-        }
-
-        try {
-            Stream::copyWithTransform($source, $target, $transform);
-        } finally {
-            fclose($source);
-            fclose($target);
-        }
-
-        return true;
     }
 }
