@@ -27,8 +27,8 @@ final class Arr
     /**
      * Determine how far into an array a given key appears.
      *
-     * Returns how many elements exist before `$key` in the `$subject` or `null`
-     * if the key does not appear.
+     * Returns how many elements exist before `$key` in the `$subject`. `null`
+     * if the key never appears in the array.
      *
      * @pure
      *
