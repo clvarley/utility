@@ -21,7 +21,7 @@
         }
     },
     "scripts": {
-        "tests": "@php vendor/bin/phpunit",
+        "test": "@php vendor/bin/phpunit",
         "style": "@php vendor/bin/php-cs-fixer fix --diff",
         "psalm": "@php vendor/bin/psalm --show-info=true"
     }
