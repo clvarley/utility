@@ -5,11 +5,11 @@ namespace Tests\Unit\Arr;
 use Clvarley\Utility\Arr;
 use PHPUnit\Framework\Attributes\CoversMethod;
 use PHPUnit\Framework\Attributes\TestDox;
-use PHPUnit\Framework\Attributes\UsesClass;
+use PHPUnit\Framework\Attributes\UsesMethod;
 
 #[CoversMethod(Arr::class, 'mergeAfterKey')]
-#[UsesClass(Arr::class, 'keyOffset')]
-#[UsesClass(Arr::class, 'splitAtOffset')]
+#[UsesMethod(Arr::class, 'keyOffset')]
+#[UsesMethod(Arr::class, 'splitAtOffset')]
 final class MergeAfterKeyTest extends ArrayTestCase
 {
     public function testCanMergeValuesAfterStringKey(): void
