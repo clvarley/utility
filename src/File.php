@@ -183,6 +183,8 @@ final class File
         $temp = fopen('php://temp', 'w+');
 
         if (false === $temp) {
+            fclose($handle);
+
             return false;
         }
 
@@ -224,6 +226,8 @@ final class File
         $target = self::openHandle($to, 'w');
 
         if (null === $target) {
+            fclose($source);
+
             return false;
         }
 
